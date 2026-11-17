@@ -22,7 +22,12 @@
     $(id).addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10); });
   });
 
+  $('backBtn').addEventListener('click', function () { show('welcome'); });
   $('startBtn').addEventListener('click', function () { show('formScreen'); $('fullName').focus(); });
+
+  ['flatNo', 'vehicleNo'].forEach(function (id) {
+    $(id).addEventListener('input', function (e) { e.target.value = e.target.value.toUpperCase(); });
+  });
 
   var rules = [
     ['fullName', function (v) { return v.trim().length >= 2 ? '' : 'Apna poora naam likhein.'; }],
@@ -34,6 +39,20 @@
     ['ownerMobile', function (v) { return /^[6-9]\d{9}$/.test(v) ? '' : 'Owner ka sahi 10 digit mobile number daalein.'; }],
     ['members', function (v) { var n = Number(v); return v && n >= 1 && n <= 20 && Number.isInteger(n) ? '' : 'Family members 1 se 20 ke beech likhein.'; }]
   ];
+
+  var bar = $('bar'), reqIds = rules.map(function (r) { return r[0]; });
+  function progress() {
+    var done = rules.filter(function (r) { return r[0] !== 'email' && r[1]($(r[0]).value) === ''; }).length + ($('consent').checked ? 1 : 0);
+    bar.style.width = Math.round(done / (reqIds.length - 1 + 1) * 100) + '%';
+  }
+  form.addEventListener('input', progress);
+  form.addEventListener('change', progress);
+  rules.forEach(function (r) {
+    $(r[0]).addEventListener('blur', function () {
+      if (!this.value && r[0] !== 'email') return; // khali field par abhi error nahi
+      var m = r[1](this.value); $(r[0] + '-err').textContent = m; this.setAttribute('aria-invalid', m ? 'true' : 'false');
+    });
+  });
 
   function validate() {
     var first = null;
@@ -61,19 +80,23 @@
     busy = true; submitBtn.disabled = true; submitBtn.textContent = 'Submit ho raha hai...';
     var body = new URLSearchParams(new FormData(form)).toString();
 
-    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+    var ctl = new AbortController(), t = setTimeout(function () { ctl.abort(); }, 20000);
+    fetch('/', { signal: ctl.signal, method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
       .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+        if (!res.ok) { var er = new Error('HTTP ' + res.status); er.status = res.status; throw er; }
         try { localStorage.setItem(SENT_KEY, String(Date.now())); } catch (x) {}
         form.reset();
         show('success'); // success sirf tab dikhta hai jab server ne OK bola
       })
-      .catch(function () {
-        formError.textContent = 'Submit nahi ho paaya. Internet check karke dobara try karein. Aapki details abhi bhi form mein hain.';
+      .catch(function (err) {
+        console.error('Registration submit failed:', err);
+        formError.textContent = 'Submit nahi ho paaya' + (err.status ? ' (error ' + err.status + ')' : '') + '. Internet check karke dobara try karein. Aapki details abhi bhi form mein hain.';
         formError.hidden = false;
       })
       .finally(function () {
+        clearTimeout(t);
         busy = false; submitBtn.disabled = false; submitBtn.textContent = 'Submit Registration';
+        progress();
       });
   });
 })();

@@ -17,3 +17,9 @@ Files: index.html, style.css, app.js, netlify.toml (no build step, no dependenci
 - Duplicate rokna: button disable hota hai aur same phone par dobara submit karne se pehle confirm poochta hai. Yeh server-side duplicate check nahi hai.
 - Verification, search aur Excel export Phase 2 hain (Netlify se CSV download ho sakta hai).
 - Local file (Notepad se open) par submission kaam nahi karegi; sirf Netlify par deploy hone ke baad.
+
+## Agar Netlify form detect nahi kar raha
+1. Netlify > Site configuration > Forms: "Form detection" Enable karein.
+2. Deploys > Trigger deploy > Clear cache and deploy site.
+3. Check karein ki `index.html` GitHub repo ke root mein hai (kisi folder ke andar nahi).
+4. Deploy ke baad Forms tab mein `resident-registration` dikhna chahiye. Tab hi submission kaam karegi.

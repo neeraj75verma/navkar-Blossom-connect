@@ -13,6 +13,7 @@
 <main class="wrap">
 
 <section id="welcome" class="screen">
+  <svg class="bloom" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><g fill="#d9a0ad" opacity=".9"><ellipse cx="32" cy="16" rx="9" ry="14"/><ellipse cx="32" cy="16" rx="9" ry="14" transform="rotate(72 32 32)"/><ellipse cx="32" cy="16" rx="9" ry="14" transform="rotate(144 32 32)"/><ellipse cx="32" cy="16" rx="9" ry="14" transform="rotate(216 32 32)"/><ellipse cx="32" cy="16" rx="9" ry="14" transform="rotate(288 32 32)"/></g><circle cx="32" cy="32" r="7" fill="#e3b45f"/></svg>
   <h1>Navkar Blossom mein aapka swagat hai!</h1>
   <p class="lead">Society mein naye resident ke roop mein register karne ke liye yeh chhota sa form fill karein. Isme sirf 3-4 minute lagenge.</p>
   <ol class="steps">
@@ -25,9 +26,11 @@
 </section>
 
 <section id="formScreen" class="screen" hidden>
+  <button type="button" class="back" id="backBtn">&larr; Wapas</button>
   <h1>Resident Registration</h1>
   <p class="lead">Jahan <span class="req">*</span> hai, wahan jaankari dena zaroori hai.</p>
 
+  <div class="progress" aria-hidden="true"><div id="bar"></div></div>
   <form name="resident-registration" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="regForm" novalidate>
     <input type="hidden" name="form-name" value="resident-registration">
     <p class="hp" aria-hidden="true"><label>Isse khali chhodein <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -38,10 +41,11 @@
         <input id="fullName" name="full_name" type="text" autocomplete="name" required maxlength="80">
         <small class="err" id="fullName-err"></small></div>
       <div class="field"><label for="flatNo">Flat Number <span class="req">*</span></label>
-        <input id="flatNo" name="flat_number" type="text" placeholder="Jaise: B-402" required maxlength="15">
+        <input id="flatNo" name="flat_number" type="text" placeholder="Jaise: B-402" autocapitalize="characters" required maxlength="15">
         <small class="err" id="flatNo-err"></small></div>
       <div class="field"><label for="mobile">Mobile Number <span class="req">*</span></label>
         <input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number" autocomplete="tel-national" required>
+        <small class="hint">Jo number WhatsApp par chalta hai, wahi dein.</small>
         <small class="err" id="mobile-err"></small></div>
       <div class="field"><label for="email">Email Address <span class="opt">(optional)</span></label>
         <input id="email" name="email" type="email" autocomplete="email" maxlength="100">
@@ -69,7 +73,7 @@
       <div class="field"><label for="vehicle">Vehicle Details <span class="opt">(optional)</span></label>
         <input id="vehicle" name="vehicle_details" type="text" placeholder="Jaise: 2 wheeler, Honda Activa" maxlength="80"></div>
       <div class="field"><label for="vehicleNo">Vehicle Registration Number <span class="opt">(optional)</span></label>
-        <input id="vehicleNo" name="vehicle_number" type="text" placeholder="Jaise: MH 48 AB 1234" maxlength="15"></div>
+        <input id="vehicleNo" name="vehicle_number" type="text" placeholder="Jaise: MH 48 AB 1234" autocapitalize="characters" maxlength="15"></div>
     </fieldset>
 
     <fieldset>
