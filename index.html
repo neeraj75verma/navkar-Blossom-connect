@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navkar Blossom – Resident Registration</title>
+<meta name="description" content="Navkar Blossom naye residents ke liye registration form.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="mark" aria-hidden="true">NB</span><strong>Navkar Blossom</strong></div></header>
+<main class="wrap">
+
+<section id="welcome" class="screen">
+  <h1>Navkar Blossom mein aapka swagat hai!</h1>
+  <p class="lead">Society mein naye resident ke roop mein register karne ke liye yeh chhota sa form fill karein. Isme sirf 3-4 minute lagenge.</p>
+  <ol class="steps">
+    <li>Apni details carefully fill karein taaki society records update kiye ja sakein.</li>
+    <li>Form submit karein.</li>
+    <li>Committee details verify karegi aur aapko society WhatsApp group ka invitation share karegi.</li>
+  </ol>
+  <p class="note">Aapki details sirf society administration ke liye hain. Yeh kisi ko publicly show nahi ki jaati.</p>
+  <button type="button" class="btn" id="startBtn">Registration Shuru Karein</button>
+</section>
+
+<section id="formScreen" class="screen" hidden>
+  <h1>Resident Registration</h1>
+  <p class="lead">Jahan <span class="req">*</span> hai, wahan jaankari dena zaroori hai.</p>
+
+  <form name="resident-registration" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="regForm" novalidate>
+    <input type="hidden" name="form-name" value="resident-registration">
+    <p class="hp" aria-hidden="true"><label>Isse khali chhodein <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+    <fieldset>
+      <legend>Aapki Details</legend>
+      <div class="field"><label for="fullName">Poora Naam <span class="req">*</span></label>
+        <input id="fullName" name="full_name" type="text" autocomplete="name" required maxlength="80">
+        <small class="err" id="fullName-err"></small></div>
+      <div class="field"><label for="flatNo">Flat Number <span class="req">*</span></label>
+        <input id="flatNo" name="flat_number" type="text" placeholder="Jaise: B-402" required maxlength="15">
+        <small class="err" id="flatNo-err"></small></div>
+      <div class="field"><label for="mobile">Mobile Number <span class="req">*</span></label>
+        <input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number" autocomplete="tel-national" required>
+        <small class="err" id="mobile-err"></small></div>
+      <div class="field"><label for="email">Email Address <span class="opt">(optional)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="100">
+        <small class="err" id="email-err"></small></div>
+      <div class="field"><label for="moveIn">Move-in Date <span class="req">*</span></label>
+        <input id="moveIn" name="move_in_date" type="date" required>
+        <small class="err" id="moveIn-err"></small></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Flat Owner Ki Details</legend>
+      <div class="field"><label for="ownerName">Owner Ka Poora Naam <span class="req">*</span></label>
+        <input id="ownerName" name="owner_name" type="text" required maxlength="80">
+        <small class="err" id="ownerName-err"></small></div>
+      <div class="field"><label for="ownerMobile">Owner Ka Mobile Number <span class="req">*</span></label>
+        <input id="ownerMobile" name="owner_mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number" required>
+        <small class="err" id="ownerMobile-err"></small></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Family Aur Vehicle Details</legend>
+      <div class="field"><label for="members">Family Members Ki Sankhya <span class="req">*</span></label>
+        <input id="members" name="family_members" type="number" inputmode="numeric" min="1" max="20" required>
+        <small class="err" id="members-err"></small></div>
+      <div class="field"><label for="vehicle">Vehicle Details <span class="opt">(optional)</span></label>
+        <input id="vehicle" name="vehicle_details" type="text" placeholder="Jaise: 2 wheeler, Honda Activa" maxlength="80"></div>
+      <div class="field"><label for="vehicleNo">Vehicle Registration Number <span class="opt">(optional)</span></label>
+        <input id="vehicleNo" name="vehicle_number" type="text" placeholder="Jaise: MH 48 AB 1234" maxlength="15"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Declaration</legend>
+      <label class="check"><input type="checkbox" id="consent" name="consent" value="yes" required>
+        <span>Main confirm karta/karti hoon ki mere dwara di gayi information correct hai. Society administration aur resident communication ke liye meri details use ki ja sakti hain. <span class="req">*</span></span></label>
+      <small class="err" id="consent-err"></small>
+    </fieldset>
+
+    <p class="err banner" id="formError" role="alert" hidden></p>
+    <button type="submit" class="btn" id="submitBtn">Submit Registration</button>
+  </form>
+</section>
+
+<section id="success" class="screen" hidden tabindex="-1">
+  <div class="tick" aria-hidden="true">&#10003;</div>
+  <h1>Registration Successfully Received!</h1>
+  <p class="lead">Navkar Blossom mein aapka swagat hai!</p>
+  <p>Aapki details society records ke liye receive ho gayi hain. Committee aapki information verify karne ke baad WhatsApp group invitation share karegi.</p>
+  <p class="thanks">Thank you for being a part of Navkar Blossom!</p>
+</section>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>
