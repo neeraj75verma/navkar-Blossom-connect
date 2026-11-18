@@ -39,3 +39,6 @@ input[aria-invalid=true]{border-color:var(--bad)}
 .thanks{font-weight:700;color:var(--rose-d)}
 @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+a.btn{display:block;text-align:center;text-decoration:none;margin:18px 0}
+.btn.wa{background:#3f7a55}.btn.wa:hover{background:#316343}
